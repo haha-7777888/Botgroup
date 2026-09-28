@@ -9,8 +9,8 @@ async def start_command(client: Client, message: Message):
     user = message.from_user
     
     log_text = (
-        f"🤖 **Bot Start လုပ်သူ အချက်အလက်**\n\n"
-        f"👤 အမည်: {user.first_name}\n"
+        f"🤖 **Bot Start info**\n\n"
+        f"👤 Name: {user.first_name}\n"
         f"🆔 ID: `{user.id}`\n"
         f"🔗 Username: @{user.username if user.username else 'None'}"
     )
@@ -20,7 +20,7 @@ async def start_command(client: Client, message: Message):
 
     text = (
         f"မင်္ဂလာပါ {user.first_name} 👋\n\n"
-        f"ကျွန်တော်ကတော့ Group များကို အလိုအလျောက်ကြိုဆိုပေးပြီး စီမံခန့်ခွဲပေးတဲ့ Welcome Bot ဖြစ်ပါတယ်။"
+        f"ကျွန်တော်ကတော့ Group များကို အလိုအလျောက်ကြိုဆိုပေးသော Welcome Bot ဖြစ်ပါတယ်။"
     )
     
     keyboard = InlineKeyboardMarkup([
