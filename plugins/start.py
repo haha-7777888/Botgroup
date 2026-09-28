@@ -1,5 +1,5 @@
-from kurigram import Client, filters
-from kurigram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram import Client, filters
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from config import SUPPORT_CHANNEL, GROUP_LINK, OWNER_ID
 from logger import log_event
 
