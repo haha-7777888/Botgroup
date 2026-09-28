@@ -16,15 +16,17 @@ async def start_command(client: Client, message: Message):
     )
     await log_event(client, log_text)
 
-    # Start မက်ဆေ့ချ်နှင့် ခလုတ် ၄ ခု
+    # Start မက်ဆေ့ချ်
     text = (
         f"မင်္ဂလာပါ {user.first_name} 👋\n\n"
         f"ကျွန်တော်ကတော့ Group များကို အလိုအလျောက်ကြိုဆိုပေးပြီး စီမံခန့်ခွဲပေးတဲ့ Welcome Bot ဖြစ်ပါတယ်။"
     )
     
+    # ခလုတ် ၄ ခု ပါဝင်စေရန် ပြင်ဆင်ထားခြင်း
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("➕ Add me to your group", url=f"https://t.me/{client.me.username}?startgroup=true")],
         [InlineKeyboardButton("📢 Group / Channel", url=SUPPORT_CHANNEL)],
+        [InlineKeyboardButton("🌐 Support Group", url=GROUP_LINK)],
         [InlineKeyboardButton("👑 Owner", url=f"tg://openmessage?user_id={OWNER_ID}")]
     ])
     
