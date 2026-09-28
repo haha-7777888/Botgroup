@@ -1,3 +1,5 @@
+from datetime import datetime
+import pytz
 from pyrogram import Client, enums
 from pyrogram.types import ChatMemberUpdated, InlineKeyboardMarkup, InlineKeyboardButton
 from logger import log_event
@@ -16,7 +18,6 @@ async def welcome_handler(client: Client, chat_member: ChatMemberUpdated):
 
     # ၁။ Bot ကို Group တွင် Admin ပေးလိုက်သည့်အခါ (သို့) ထည့်လိုက်သည့်အခါ
     if user.id == client.me.id:
-        # ရှေးဦးစွာ member ဖြစ်နေပြီးမှ admin ဖြစ်သွားခြင်း ဟုတ်မဟုတ် စစ်ဆေးရန်
         if old_m and old_m.status in [enums.ChatMemberStatus.MEMBER, enums.ChatMemberStatus.RESTRICTED]:
             return
         
@@ -39,11 +40,16 @@ async def welcome_handler(client: Client, chat_member: ChatMemberUpdated):
 
         user_mention = f"<a href='tg://user?id={user.id}'>{user.first_name}</a>"
         
+        # မြန်မာစံတော်ချိန် (Asia/Yangon) ဖြင့် အချိန်ရယူခြင်း
+        yangon_tz = pytz.timezone("Asia/Yangon")
+        current_time = datetime.now(yangon_tz).strftime("%I:%M:%S %p")
+        
         welcome_text = (
             f"<b>{chat.title}</b>\n\n"
             f"<tg-emoji emoji-id='6120837741266603661'>🎧</tg-emoji><b>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ</b><tg-emoji emoji-id='6267119710278522544'>🎧</tg-emoji> {user_mention}\n\n"
             f"<tg-emoji emoji-id='6264538349034281099'>🎧</tg-emoji><b>ɴᴀᴍᴇ</b><tg-emoji emoji-id='6267119710278522544'>🎧</tg-emoji>{user_mention}\n\n"
             f"<tg-emoji emoji-id='6030656587830399914'>🎧</tg-emoji><b>ID</b><tg-emoji emoji-id='6267119710278522544'>🎧</tg-emoji><code>{user.id}</code>\n\n"
+            f"<tg-emoji emoji-id='5787192063099408213'>🎧</tg-emoji><b>ᴛɪᴍᴇ</b><tg-emoji emoji-id='6267119710278522544'>🎧</tg-emoji><code>{current_time}</code>\n\n"
             f"<tg-emoji emoji-id='4972172205652706288'>🎧</tg-emoji><tg-emoji emoji-id='4974451085235192775'>🎧</tg-emoji><tg-emoji emoji-id='4972061468510913587'>🎧</tg-emoji><tg-emoji emoji-id='4972370753400865760'>🎧</tg-emoji><tg-emoji emoji-id='4972135526631999147'>🎧</tg-emoji>"
         )
         
