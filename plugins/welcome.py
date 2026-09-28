@@ -1,7 +1,7 @@
 from datetime import datetime
 import pytz
-from kurigram import Client, enums
-from kurigram.types import ChatMemberUpdated, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram import Client, enums
+from pyrogram.types import ChatMemberUpdated, InlineKeyboardMarkup, InlineKeyboardButton
 from logger import log_event
 
 @Client.on_chat_member_updated()
