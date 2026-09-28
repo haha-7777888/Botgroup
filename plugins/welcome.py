@@ -54,7 +54,7 @@ async def welcome_handler(client: Client, chat_member: ChatMemberUpdated):
         )
         
         keyboard = InlineKeyboardMarkup([
-            [InlineKeyboardButton(" ရည်းစားရှာရန် နှိပ်ပါ ", url="https://t.me/Bika_Mus_ic_Bot")]
+            [InlineKeyboardButton(" ရည်းစားရှာရန် နှိပ်ပါ ", url="https://t.me/Bika_Mus_ic_Bot",icon_custom_emoji_id="6143042404359345021")]
         ])
         
         try:
