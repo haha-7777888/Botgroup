@@ -1,4 +1,4 @@
-from kurigram import Client
+from pyrogram import Client
 from config import LOGGER_ID
 
 async def log_event(client: Client, text: str):
