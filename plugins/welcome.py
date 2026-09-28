@@ -6,7 +6,7 @@ from logger import log_event
 
 @Client.on_chat_member_updated()
 async def welcome_handler(client: Client, chat_member: ChatMemberUpdated):
-    # Pyrogram ဗားရှင်းအမျိုးမျိုးအတွက် အဆင်ပြေစေရန် safety check ပြုလုပ်ခြင်း
+    
     new_m = getattr(chat_member, "new_chat_member", None) or getattr(chat_member, "new_member", None)
     old_m = getattr(chat_member, "old_chat_member", None) or getattr(chat_member, "old_member", None)
     
@@ -16,7 +16,7 @@ async def welcome_handler(client: Client, chat_member: ChatMemberUpdated):
     chat = chat_member.chat
     user = new_m.user
 
-    # ၁။ Bot ကို Group တွင် Admin ပေးလိုက်သည့်အခါ (သို့) ထည့်လိုက်သည့်အခါ
+    
     if user.id == client.me.id:
         if old_m and old_m.status in [enums.ChatMemberStatus.MEMBER, enums.ChatMemberStatus.RESTRICTED]:
             return
@@ -32,15 +32,15 @@ async def welcome_handler(client: Client, chat_member: ChatMemberUpdated):
         await log_event(client, log_text)
         return
 
-    # ၂။ Group ထဲသို့ Member အသစ်တစ်ဦး ဝင်လာသည့်အခါ (Welcome မက်ဆေ့ချ် ပို့ရန်)
+    
     if new_m.status in [enums.ChatMemberStatus.MEMBER, enums.ChatMemberStatus.OWNER, enums.ChatMemberStatus.ADMINISTRATOR]:
-        # Bot ဝင်လာတာကို ကျော်ရန်
+        
         if user.is_bot:
             return
 
         user_mention = f"<a href='tg://user?id={user.id}'>{user.first_name}</a>"
         
-        # မြန်မာစံတော်ချိန် (Asia/Yangon) ဖြင့် အချိန်ရယူခြင်း
+        
         yangon_tz = pytz.timezone("Asia/Yangon")
         current_time = datetime.now(yangon_tz).strftime("%I:%M:%S %p")
         
