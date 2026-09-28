@@ -1,8 +1,8 @@
 import json
 import os
 import asyncio
-from hydrogram import Client, filters
-from hydrogram.types import Message
+from kurigram import Client, filters
+from kurigram.types import Message
 from config import OWNER_ID
 
 DATA_FILE = "users.json"
