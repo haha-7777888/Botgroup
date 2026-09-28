@@ -5,24 +5,24 @@ from logger import log_event
 
 @Client.on_message(filters.command("start") & filters.private)
 async def start_command(client: Client, message: Message):
+    print("👉 [START DEBUG] /start command received from user:", message.from_user.id)
     user = message.from_user
     
-    # Logger သို့ ပို့ရန်
     log_text = (
         f"🤖 **Bot Start လုပ်သူ အချက်အလက်**\n\n"
         f"👤 အမည်: {user.first_name}\n"
         f"🆔 ID: `{user.id}`\n"
         f"🔗 Username: @{user.username if user.username else 'None'}"
     )
+    
+    # log_event ကို ခေါ်ခြင်း
     await log_event(client, log_text)
 
-    # Start မက်ဆေ့ချ်
     text = (
         f"မင်္ဂလာပါ {user.first_name} 👋\n\n"
         f"ကျွန်တော်ကတော့ Group များကို အလိုအလျောက်ကြိုဆိုပေးပြီး စီမံခန့်ခွဲပေးတဲ့ Welcome Bot ဖြစ်ပါတယ်။"
     )
     
-    # ခလုတ် ၄ ခု ပါဝင်စေရန် ပြင်ဆင်ထားခြင်း
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("➕ Add me to your group", url=f"https://t.me/{client.me.username}?startgroup=true")],
         [InlineKeyboardButton("📢 Group / Channel", url=SUPPORT_CHANNEL)],
