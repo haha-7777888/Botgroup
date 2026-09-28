@@ -7,7 +7,7 @@ from config import OWNER_ID
 
 DATA_FILE = "users.json"
 
-# ဒေတာများ သိမ်းဆည်းရန် function
+
 def load_data():
     if os.path.exists(DATA_FILE):
         try:
@@ -21,7 +21,7 @@ def save_data(data):
     with open(DATA_FILE, "w") as f:
         json.dump(data, f)
 
-# Start လုပ်သော User များကို မှတ်သားရန် (Start.py တွင် သို့မဟုတ် event ဖြင့်)
+
 @Client.on_message(filters.command("start") & filters.private, group=10)
 async def save_user(client: Client, message: Message):
     data = load_data()
@@ -30,7 +30,7 @@ async def save_user(client: Client, message: Message):
         data["users"].append(user_id)
         save_data(data)
 
-# Bot ကို Admin ပေးလိုက်သော Group များကို မှတ်သားရန်
+
 @Client.on_chat_member_updated(group=10)
 async def save_chat(client: Client, chat_member):
     new_m = getattr(chat_member, "new_chat_member", None) or getattr(chat_member, "new_member", None)
@@ -41,7 +41,7 @@ async def save_chat(client: Client, chat_member):
             data["chats"].append(chat_id)
             save_data(data)
 
-# Owner သီးသန့် Broadcast အမိန့်ပေးရန်
+
 @Client.on_message(filters.command("broadcast") & filters.user(OWNER_ID))
 async def broadcast_message(client: Client, message: Message):
     if not message.reply_to_message:
@@ -55,7 +55,7 @@ async def broadcast_message(client: Client, message: Message):
     success_users = 0
     success_chats = 0
     
-    # User များထံ ပို့ခြင်း
+    
     for uid in users:
         try:
             await query.copy(chat_id=uid)
@@ -64,7 +64,7 @@ async def broadcast_message(client: Client, message: Message):
         except Exception:
             pass
             
-    # Group များထံ ပို့ခြင်း
+    
     for cid in chats:
         try:
             await query.copy(chat_id=cid)
