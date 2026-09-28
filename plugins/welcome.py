@@ -23,8 +23,8 @@ async def welcome_handler(client: Client, chat_member: ChatMemberUpdated):
         added_by = chat_member.from_user
         
         log_text = (
-            f"📥 <b>Bot အသစ်ထည့်ခံရသည့် Group</b>\n\n"
-            f"🏷 နမည်: {chat.title}\n"
+            f"📥 <b>Bot Add Group Info</b>\n\n"
+            f"🏷 Name: {chat.title}\n"
             f"🆔 ID: <code>{chat.id}</code>\n"
             f"👤 ထည့်သွင်းပေးသူ: {added_by.first_name if added_by else 'Unknown'} (<code>{added_by.id if added_by else 'N/A'}</code>)"
         )
@@ -40,14 +40,14 @@ async def welcome_handler(client: Client, chat_member: ChatMemberUpdated):
         user_mention = f"<a href='tg://user?id={user.id}'>{user.first_name}</a>"
         
         welcome_text = (
-            f"<b>⚡ WELCOME TO , {chat.title}</b>\n\n"
-            f"👤 <b>NAME</b> » {user_mention}\n"
-            f"🆔 <b>ID</b> » <code>{user.id}</code>\n"
-            f"⏰ <b>TIME</b> » Bot Successfully Added! <tg-emoji emoji-id='6289327805050134049'>🎧</tg-emoji> ရည်းစားရှာရန် နှိပ်ပါ (1)"
+            f"<b>{chat.title}</b>\n\n"
+            f"👤 <b>WELCOME TO</b> » {user_mention}\n\n"
+            f"🆔 <b>ID</b> » <code>{user.id}</code>\n\n"
+            f"အေးချမ်း ပျော်ရွင်ပါစေ။<tg-emoji emoji-id='6289327805050134049'>🎧</tg-emoji>"
         )
         
         keyboard = InlineKeyboardMarkup([
-            [InlineKeyboardButton("💞 ရည်းစားရှာရန် နှိပ်ပါ (1)", url="https://t.me/your_channel")]
+            [InlineKeyboardButton("💞", url="https://t.me/your_channel")]
         ])
         
         try:
