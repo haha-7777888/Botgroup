@@ -24,10 +24,10 @@ async def start_command(client: Client, message: Message):
     )
     
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("➕ Add me to your group", url=f"https://t.me/{client.me.username}?startgroup=true")],
-        [InlineKeyboardButton("📢 Group / Channel", url=SUPPORT_CHANNEL)],
-        [InlineKeyboardButton("🌐 Support Group", url=GROUP_LINK)],
-        [InlineKeyboardButton("👑 Owner", url=f"tg://openmessage?user_id={OWNER_ID}")]
+        [InlineKeyboardButton("Add me to your group", url=f"https://t.me/{client.me.username}?startgroup=true")],
+        [InlineKeyboardButton("Channel", url=SUPPORT_CHANNEL),
+        InlineKeyboardButton(" Support", url=GROUP_LINK)],
+        [InlineKeyboardButton("Owner", url=f"tg://openmessage?user_id={OWNER_ID}")]
     ])
     
     await message.reply_text(text, reply_markup=keyboard)
