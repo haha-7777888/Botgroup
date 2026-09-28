@@ -1,23 +1,26 @@
-from pyrogram import Client, filters, enums
+from pyrogram import Client, enums
 from pyrogram.types import ChatMemberUpdated, InlineKeyboardMarkup, InlineKeyboardButton
 from logger import log_event
 
 @Client.on_chat_member_updated()
 async def welcome_handler(client: Client, chat_member: ChatMemberUpdated):
-    new_member = chat_member.new_member
-    old_member = chat_member.old_member
+    # Pyrogram ဗားရှင်းအမျိုးမျိုးအတွက် အဆင်ပြေစေရန် safety check ပြုလုပ်ခြင်း
+    new_m = getattr(chat_member, "new_chat_member", None) or getattr(chat_member, "new_member", None)
+    old_m = getattr(chat_member, "old_chat_member", None) or getattr(chat_member, "old_member", None)
     
-    if not new_member:
+    if not new_m:
         return
 
-    
-    if new_member.user.id == client.me.id:
-        if old_member and old_member.status in ["member", "restricted"]:
+    chat = chat_member.chat
+    user = new_m.user
+
+    # ၁။ Bot ကို Group တွင် Admin ပေးလိုက်သည့်အခါ (သို့) ထည့်လိုက်သည့်အခါ
+    if user.id == client.me.id:
+        # ရှေးဦးစွာ member ဖြစ်နေပြီးမှ admin ဖြစ်သွားခြင်း ဟုတ်မဟုတ် စစ်ဆေးရန်
+        if old_m and old_m.status in [enums.ChatMemberStatus.MEMBER, enums.ChatMemberStatus.RESTRICTED]:
             return
         
-        chat = chat_member.chat
         added_by = chat_member.from_user
-        
         
         log_text = (
             f"📥 <b>Bot အသစ်ထည့်ခံရသည့် Group</b>\n\n"
@@ -28,15 +31,12 @@ async def welcome_handler(client: Client, chat_member: ChatMemberUpdated):
         await log_event(client, log_text)
         return
 
-    
-    if new_member.status in [enums.ChatMemberStatus.MEMBER, enums.ChatMemberStatus.OWNER, enums.ChatMemberStatus.ADMINISTRATOR]:
-        if new_member.user.is_bot:
+    # ၂။ Group ထဲသို့ Member အသစ်တစ်ဦး ဝင်လာသည့်အခါ (Welcome မက်ဆေ့ချ် ပို့ရန်)
+    if new_m.status in [enums.ChatMemberStatus.MEMBER, enums.ChatMemberStatus.OWNER, enums.ChatMemberStatus.ADMINISTRATOR]:
+        # Bot ဝင်လာတာကို ကျော်ရန်
+        if user.is_bot:
             return
 
-        chat = chat_member.chat
-        user = new_member.user
-        
-        
         user_mention = f"<a href='tg://user?id={user.id}'>{user.first_name}</a>"
         
         welcome_text = (
