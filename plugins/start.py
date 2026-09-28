@@ -15,7 +15,7 @@ async def start_command(client: Client, message: Message):
         f"🔗 Username: @{user.username if user.username else 'None'}"
     )
     
-    # log_event ကို ခေါ်ခြင်း
+    
     await log_event(client, log_text)
 
     text = (
