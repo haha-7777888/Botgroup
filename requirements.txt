@@ -1,3 +1,3 @@
-hydrogram
+kurigram
 tgcrypto
 pytz
