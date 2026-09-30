@@ -20,13 +20,11 @@ async def start_command(client: Client, message: Message):
 
     text = (
         f"မင်္ဂလာပါ {user.first_name} 👋\n\n"
-        f"ကျွန်တော်ကတော့ Group များကို အလိုအလျောက်ကြိုဆိုပေးသော Welcome Bot ဖြစ်ပါတယ်။"
+        f"ကျွန်တော်ကတော့ ကျွန်တော်ပဲ ဖြစ်ပါတယ်"
     )
     
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("Add me to your group", url=f"https://t.me/{client.me.username}?startgroup=true")],
-        [InlineKeyboardButton("Channel", url=SUPPORT_CHANNEL),
-        InlineKeyboardButton(" Support", url=GROUP_LINK)],
         [InlineKeyboardButton("Owner", url=f"tg://openmessage?user_id={OWNER_ID}")]
     ])
     
